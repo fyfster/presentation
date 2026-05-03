@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" role="img" aria-labelledby="title">
+  <title>Ceramica pictata din kit DIY</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F7EDCC"/>
+      <stop offset="1" stop-color="#C8D8B8"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="18"/></filter>
+  </defs>
+  <rect width="900" height="1200" fill="url(#bg)"/>
+  <circle cx="760" cy="170" r="170" fill="rgba(255,255,255,.25)" filter="url(#soft)"/>
+  <circle cx="120" cy="1060" r="230" fill="rgba(255,255,255,.18)" filter="url(#soft)"/>
+  <rect x="70" y="80" width="760" height="1040" rx="48" fill="rgba(255,255,255,.22)" stroke="rgba(44,32,53,.12)"/>
+  <ellipse cx="450" cy="835" rx="250" ry="56" fill="rgba(44,32,53,.18)"/><path d="M300 435 H600 L555 790 H345 Z" fill="#fff" opacity=".86" stroke="#6B4E71" stroke-width="8"/><circle cx="390" cy="585" r="48" fill="#E87070"/><circle cx="505" cy="620" r="55" fill="#5B9EA0"/><path d="M350 730 C420 680 495 770 560 700" fill="none" stroke="#D8C8E8" stroke-width="24" stroke-linecap="round"/>
+</svg>
