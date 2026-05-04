@@ -381,19 +381,38 @@
     .gallery-caption span { color: var(--muted); font-size: 0.83rem; }
 
     .video-feature {
-      display: grid;
-      gap: 16px;
+      position: relative;
       margin-bottom: 18px;
       overflow: hidden;
       border: 1px solid rgba(210,162,72,0.18);
       border-radius: var(--r);
-      background:
-        linear-gradient(135deg, rgba(210,162,72,0.08), rgba(197,62,79,0.08)),
-        rgba(255,255,255,0.035);
       box-shadow: 0 18px 64px rgba(0,0,0,0.36);
+      min-height: 480px;
+    }
+    .video-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .video-overlay {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      height: 100%;
+      min-height: 480px;
+      background: linear-gradient(to bottom, rgba(5,3,10,0.82) 0%, rgba(5,3,10,0.3) 40%, transparent 100%);
+      transition: opacity 400ms ease;
+      pointer-events: none;
+    }
+    .video-overlay .video-copy {
+      pointer-events: auto;
     }
     .video-copy {
-      padding: 22px 20px 0;
+      padding: 28px 24px;
+      width: 100%;
     }
     .video-copy h3 {
       margin: 0 0 8px;
@@ -407,33 +426,9 @@
       color: var(--muted);
       font-size: 0.95rem;
     }
-    .video-frame {
-      position: relative;
-      margin: 0 12px 12px;
-      overflow: hidden;
-      border: 1px solid rgba(250,244,238,0.12);
-      border-radius: var(--r);
-      background: #05030a;
-    }
-    .video-frame video {
-      display: block;
-      width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-    }
-    .video-note {
-      position: absolute;
-      left: 12px;
-      bottom: 12px;
-      max-width: calc(100% - 24px);
-      padding: 8px 10px;
-      border: 1px solid rgba(250,244,238,0.12);
-      border-radius: 999px;
-      background: rgba(8,5,16,0.76);
-      color: var(--muted);
-      font-size: 0.76rem;
+    .video-feature.is-playing .video-overlay {
+      opacity: 0;
       pointer-events: none;
-      backdrop-filter: blur(12px);
     }
 
     /* ── TESTIMONIALS ────────────────────────── */
@@ -638,14 +633,8 @@
 
       .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-      .video-feature {
-        grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
-        align-items: center;
-        gap: 0;
-        margin-bottom: 20px;
-      }
-      .video-copy { padding: 28px; }
-      .video-frame { margin: 12px; }
+      .video-feature { min-height: 600px; margin-bottom: 20px; }
+      .video-overlay { min-height: 600px; }
 
       .gallery-card { display: block; min-height: 270px; }
       .gallery-card img { aspect-ratio: auto; height: 100%; min-height: 270px; }
@@ -844,18 +833,15 @@
         </div>
 
         <div class="video-feature" data-reveal>
-          <div class="video-copy">
-            <p class="section-kicker">Video</p>
-            <h3>Vezi atmosfera barului in miscare.</h3>
-            <p>Un scurt clip poate arata cel mai bine ritmul servirii, luminile, reactiile invitatilor si energia din jurul barului.</p>
-          </div>
-          <div class="video-frame">
-            <!-- Pentru activare, adauga fisierul local: images/salsa-bar-video.mp4 -->
-            <video controls preload="metadata" poster="images/hero-mobile-bar.jpg" aria-label="Video de prezentare SALSA Bar Mobil">
-              <source src="images/salsa-bar-video.mp4" type="video/mp4">
-              Browserul tau nu poate reda video HTML5.
-            </video>
-            <span class="video-note">Pregatit pentru clip local MP4</span>
+          <video class="video-bg" controls preload="metadata" poster="images/smoked-cocktail-detail.jpg" aria-label="Video de prezentare SALSA Bar Mobil">
+            <source src="images/salsa-bar-video.mp4" type="video/mp4">
+          </video>
+          <div class="video-overlay">
+            <div class="video-copy">
+              <p class="section-kicker">Video</p>
+              <h3>Vezi atmosfera barului in miscare.</h3>
+              <p>Un scurt clip poate arata cel mai bine ritmul servirii, luminile, reactiile invitatilor si energia din jurul barului.</p>
+            </div>
           </div>
         </div>
 
@@ -1078,6 +1064,14 @@
     }, { threshold: 0.08, rootMargin: "0px 0px -48px 0px" });
 
     document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
+
+    const videoBg = document.querySelector(".video-bg");
+    const videoFeature = document.querySelector(".video-feature");
+    if (videoBg) {
+      videoBg.addEventListener("play", () => videoFeature.classList.add("is-playing"));
+      videoBg.addEventListener("pause", () => videoFeature.classList.remove("is-playing"));
+      videoBg.addEventListener("ended", () => videoFeature.classList.remove("is-playing"));
+    }
   </script>
 </body>
 </html>
