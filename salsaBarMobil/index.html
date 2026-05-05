@@ -43,6 +43,7 @@
       background: var(--bg);
       font-family: var(--sans);
       line-height: 1.65;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -63,7 +64,8 @@
     }
 
     body.menu-open { overflow: hidden; }
-    img { display: block; width: 100%; height: auto; }
+    img, video { display: block; max-width: 100%; }
+    img { width: 100%; height: auto; }
     a { color: inherit; text-decoration: none; }
     button { font: inherit; }
     h1, h2, h3, p { margin-top: 0; }
@@ -115,8 +117,9 @@
       left: -68.5%;
       top: -127%;
       width: 237%;
+      max-width: none;
       height: auto;
-      filter: brightness(1.08) contrast(1.08) drop-shadow(0 4px 14px rgba(0,0,0,0.55));
+      filter: brightness(1.22) contrast(1.12) drop-shadow(0 4px 14px rgba(0,0,0,0.55));
     }
     .brand-text {
       position: absolute;
@@ -200,6 +203,14 @@
     .hero { padding: 44px 0 60px; }
 
     .hero-grid { display: grid; gap: 40px; align-items: center; }
+    .hero-grid > *,
+    .service-panel > *,
+    .card-grid > *,
+    .gallery-grid > *,
+    .contact-info,
+    .cta-panel {
+      min-width: 0;
+    }
 
     .eyebrow {
       display: inline-flex; align-items: center; gap: 10px;
@@ -615,6 +626,185 @@
     [data-reveal][data-delay="5"] { transition-delay: 350ms; }
     [data-reveal][data-delay="6"] { transition-delay: 420ms; }
 
+    /* ── MOBILE FIT ──────────────────────────── */
+    @media (max-width: 619px) {
+      .container { width: min(100% - 32px, var(--max)); }
+
+      .nav-wrap { min-height: 72px; }
+      .brand-mark {
+        width: 156px;
+        height: 58px;
+        box-shadow: none;
+      }
+      .brand-mark img {
+        left: -61%;
+        top: -127%;
+        width: 222%;
+      }
+      .nav-links {
+        inset: 72px 0 auto 0;
+        padding: 12px 16px 18px;
+        text-align: center;
+      }
+      .nav-links a {
+        padding: 13px 10px;
+      }
+
+      .hero {
+        padding: 34px 0 54px;
+        text-align: center;
+      }
+      .hero-grid { gap: 30px; }
+      h1 {
+        max-width: 10.5ch;
+        margin-inline: auto;
+        font-size: clamp(2.35rem, 13vw, 3.35rem);
+      }
+      .hero-sub {
+        max-width: 34rem;
+        margin-inline: auto;
+      }
+      .hero-actions {
+        align-items: center;
+        margin-top: 24px;
+      }
+      .hero-actions .btn,
+      .cta-actions .btn,
+      .contact-actions .btn {
+        width: 100%;
+        max-width: 342px;
+        padding-inline: 18px;
+        line-height: 1.15;
+        white-space: normal;
+      }
+      .hero-meta {
+        justify-content: center;
+        text-align: center;
+        gap: 8px 10px;
+      }
+      .hero-media {
+        width: 100%;
+        max-width: 342px;
+        margin-inline: auto;
+      }
+      .hero-image {
+        min-height: 0;
+        width: 100%;
+        margin-inline: auto;
+      }
+      .hero-badge {
+        max-width: 342px;
+        margin: 12px auto 0;
+        text-align: center;
+      }
+      .hero-badge strong { font-size: 1.3rem; }
+
+      .section-head {
+        justify-items: center;
+        text-align: center;
+      }
+      .section-kicker { text-align: center; }
+      h2 {
+        max-width: 14ch;
+        margin-inline: auto;
+        text-align: center;
+      }
+
+      .service-panel {
+        padding: 24px 18px;
+        text-align: center;
+      }
+      .service-list li { text-align: left; }
+
+      .event-card,
+      .testimonial-card {
+        padding: 20px 18px;
+        text-align: center;
+      }
+
+      .video-feature {
+        min-height: 430px;
+      }
+      .video-overlay {
+        min-height: 430px;
+        align-items: flex-start;
+      }
+      .video-copy {
+        padding: 24px 18px;
+        text-align: center;
+      }
+
+      .gallery-caption { text-align: center; }
+
+      .cta-panel {
+        padding: 30px 18px;
+        text-align: center;
+      }
+      .cta-panel h2 { max-width: 13ch; }
+      .cta-actions { align-items: center; }
+
+      .footer-head {
+        text-align: center;
+      }
+      .footer-head p {
+        margin-inline: auto;
+      }
+      .contact-info {
+        padding: 26px 18px;
+        text-align: center;
+      }
+      .contact-info-row {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .contact-info-label { min-width: 0; }
+      .contact-info-content {
+        justify-content: center;
+        width: 100%;
+        flex: none;
+      }
+      .contact-info a,
+      .contact-info strong {
+        overflow-wrap: anywhere;
+      }
+      .footer-bottom {
+        align-items: center;
+        text-align: center;
+      }
+      .back-to-top {
+        right: 12px;
+        bottom: 12px;
+        width: 42px;
+        height: 42px;
+      }
+    }
+
+    @media (max-width: 340px) {
+      .brand-mark {
+        width: 132px;
+        height: 52px;
+      }
+      .brand-mark img {
+        left: -62%;
+        width: 224%;
+      }
+      .btn {
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+      }
+      h1 { font-size: clamp(2.1rem, 12vw, 2.6rem); }
+      h2 { font-size: clamp(1.65rem, 8vw, 2.2rem); }
+      .hero-badge { padding-inline: 16px; }
+      .service-panel,
+      .event-card,
+      .testimonial-card,
+      .cta-panel,
+      .contact-info {
+        padding-inline: 16px;
+      }
+    }
+
     /* ── 620px ───────────────────────────────── */
     @media (min-width: 620px) {
       section { padding: 80px 0; }
@@ -636,14 +826,8 @@
       .video-feature { min-height: 600px; margin-bottom: 20px; }
       .video-overlay { min-height: 600px; }
 
-      .gallery-card { display: block; min-height: 270px; }
-      .gallery-card img { aspect-ratio: auto; height: 100%; min-height: 270px; }
-      .gallery-caption {
-        position: absolute; inset: auto 12px 12px;
-        border: 1px solid rgba(250,244,238,0.1);
-        border-radius: 0 0 8px 8px; border-top: none;
-        background: rgba(8,5,16,0.84); backdrop-filter: blur(14px);
-      }
+      .gallery-card { display: flex; flex-direction: column; min-height: 270px; }
+      .gallery-card img { aspect-ratio: auto; height: auto; flex: 1; min-height: 270px; }
 
       .gallery-card:first-child, .gallery-card:nth-child(4) { grid-row: span 2; }
       .gallery-card:first-child img, .gallery-card:nth-child(4) img { min-height: 560px; }
