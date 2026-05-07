@@ -170,6 +170,8 @@
       line-height: 1; text-align: center;
       transition: transform 200ms ease, box-shadow 200ms ease,
                   border-color 200ms ease, background 200ms ease;
+      max-width: 100%;
+      overflow-wrap: anywhere;
     }
     .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
 
@@ -233,12 +235,23 @@
       font-family: var(--serif);
       font-size: clamp(2.4rem, 10vw, 4.8rem);
       font-weight: 600; line-height: 1.02; letter-spacing: -0.01em;
+      overflow-wrap: normal;
     }
 
     .hero-sub {
       max-width: 500px; margin-bottom: 0;
       color: var(--muted); font-size: clamp(0.97rem, 2vw, 1.08rem);
       font-weight: 300; line-height: 1.75;
+    }
+
+    .hero-motto {
+      max-width: 520px;
+      margin: 14px 0 0;
+      color: var(--button-blue);
+      font-family: var(--serif);
+      font-size: clamp(1.15rem, 3vw, 1.5rem);
+      font-style: italic;
+      line-height: 1.25;
     }
 
     .hero-actions {
@@ -293,6 +306,65 @@
       font-family: var(--serif);
       font-size: clamp(1.75rem, 7vw, 3.6rem);
       font-weight: 600; line-height: 1.06; letter-spacing: -0.01em;
+      overflow-wrap: anywhere;
+    }
+
+    .storyline {
+      margin: 32px 0 0;
+      padding: 20px clamp(18px, 4vw, 34px);
+      border: 1px solid rgba(70, 130, 156, 0.28);
+      border-radius: var(--r);
+      background: linear-gradient(135deg, rgba(70, 130, 156, 0.13), rgba(255,255,255,0.03));
+      color: var(--button-blue);
+      font-family: var(--serif);
+      font-size: clamp(1.25rem, 4vw, 1.95rem);
+      font-style: italic;
+      line-height: 1.25;
+      text-align: center;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.24);
+      overflow-wrap: anywhere;
+    }
+
+    /* ── ABOUT ──────────────────────────────── */
+    .about {
+      background: linear-gradient(180deg, transparent 0%, rgba(70, 130, 156, 0.05) 100%);
+    }
+
+    .about-panel {
+      display: grid;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .about-copy {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: rgba(255,255,255,0.035);
+    }
+
+    .about-copy p {
+      margin-bottom: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      overflow-wrap: anywhere;
+    }
+
+    .about-copy p:last-child { margin-bottom: 0; }
+
+    .about-copy strong { color: var(--ink); font-weight: 600; }
+
+    .about-image {
+      overflow: hidden;
+      border: 1px solid rgba(250,244,238,0.1);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+    }
+
+    .about-image img {
+      aspect-ratio: 4 / 3;
+      height: auto;
+      object-fit: cover;
     }
 
     /* ── SERVICES ────────────────────────────── */
@@ -377,6 +449,20 @@
       object-fit: cover; transition: transform 500ms ease;
     }
     .gallery-card:hover img { transform: scale(1.06); }
+
+    .gallery-video-card {
+      min-height: 0;
+    }
+    .gallery-video-card video {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      height: auto;
+      object-fit: cover;
+      background: #05030a;
+    }
+    .gallery-video-card:hover video {
+      transform: none;
+    }
 
     .gallery-caption {
       position: static; z-index: 3;
@@ -656,17 +742,23 @@
       }
       .hero-grid { gap: 30px; }
       h1 {
-        max-width: 10.5ch;
+        max-width: 13ch;
         margin-inline: auto;
-        font-size: clamp(2.35rem, 13vw, 3.35rem);
+        font-size: clamp(2.05rem, 9.8vw, 2.55rem);
       }
       .hero-sub {
         max-width: 34rem;
+        margin-inline: auto;
+        overflow-wrap: anywhere;
+      }
+      .hero-motto {
+        max-width: 26rem;
         margin-inline: auto;
       }
       .hero-actions {
         align-items: center;
         margin-top: 24px;
+        width: 100%;
       }
       .hero-actions .btn,
       .cta-actions .btn,
@@ -678,10 +770,12 @@
         white-space: normal;
       }
       .hero-meta {
-        justify-content: center;
+        display: grid;
+        justify-items: center;
         text-align: center;
         gap: 8px 10px;
       }
+      .hero-meta-dot { display: none; }
       .hero-media {
         width: 100%;
         max-width: 342px;
@@ -715,6 +809,11 @@
         text-align: center;
       }
       .service-list li { text-align: left; }
+
+      .about-copy {
+        padding: 24px 18px;
+        text-align: center;
+      }
 
       .event-card,
       .testimonial-card {
@@ -828,6 +927,8 @@
 
       .gallery-card { display: flex; flex-direction: column; min-height: 270px; }
       .gallery-card img { aspect-ratio: auto; height: auto; flex: 1; min-height: 270px; }
+      .gallery-video-card { grid-column: span 2; }
+      .gallery-video-card video { aspect-ratio: 16 / 9; flex: 1; min-height: 270px; }
 
       .gallery-card:first-child, .gallery-card:nth-child(4) { grid-row: span 2; }
       .gallery-card:first-child img, .gallery-card:nth-child(4) img { min-height: 560px; }
@@ -869,11 +970,17 @@
         padding: 44px; gap: 40px;
       }
 
+      .about-panel {
+        grid-template-columns: minmax(0, 0.98fr) minmax(360px, 1.02fr);
+        gap: 44px;
+      }
+
       .card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
       .gallery-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .gallery-card:first-child { grid-column: span 2; }
       .gallery-card:nth-child(4) { grid-column: span 2; }
+      .gallery-video-card { grid-column: span 2; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -897,6 +1004,7 @@
       </a>
 
       <nav class="nav-links" id="site-nav" aria-label="Secțiuni pagină">
+        <a href="#despre-noi">Despre noi</a>
         <a href="#servicii">Servicii</a>
         <a href="#galerie">Galerie</a>
         <a href="#testimoniale">Testimoniale</a>
@@ -919,8 +1027,9 @@
       <div class="container hero-grid">
 
         <div data-reveal>
-          <h1 id="hero-title">Cocktailuri, ritm și barul care strânge lumea în jur.</h1>
-          <p class="hero-sub">Setup elegant, barmani profesioniști și băuturi memorabile — pentru nunți, botezuri, majorate și orice eveniment care merită mai mult.</p>
+          <h1 id="hero-title">Barul care dă tonul evenimentului tău.</h1>
+          <p class="hero-sub">Creăm cocktailuri, atmosferă și experiențe memorabile, adaptate fiecărui eveniment. De la concept la ultimul pahar, ne ocupăm de fiecare detaliu.</p>
+          <p class="hero-motto">If you can dream it, you can drink it!</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="https://wa.me/40743614513?text=Buna%2C%20as%20dori%20o%20oferta%20pentru%20SALSA%20Bar%20Mobil%20la%20un%20eveniment." target="_blank" rel="noopener">Cere ofertă pe WhatsApp</a>
             <a class="btn btn-secondary" href="#galerie">Vezi galeria</a>
@@ -947,25 +1056,48 @@
       </div>
     </section>
 
+    <!-- DESPRE NOI -->
+    <section class="about" id="despre-noi" aria-labelledby="about-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="section-kicker">Despre noi</p>
+          <h2 id="about-title">Nu suntem doar un bar mobil. Suntem parte din atmosfera evenimentului tău.</h2>
+        </div>
+
+        <div class="about-panel" data-reveal>
+          <div class="about-copy">
+            <p>La SALSA Bar Mobil, credem că un cocktail bun e doar începutul. Ceea ce contează este experiența din jurul lui.</p>
+            <p>Fiecare eveniment e diferit, iar noi adaptăm totul — de la setup și meniu până la interacțiunea cu invitații — pentru a crea un vibe memorabil.</p>
+            <p><strong>Nu servim doar băuturi.</strong> Construim momente care le leagă.</p>
+          </div>
+          <figure class="about-image">
+            <img src="images/about-bar.jpg" alt="Setup SALSA Bar Mobil pregătit pentru un eveniment elegant, cu cocktailuri și decor luminos">
+          </figure>
+        </div>
+
+        <p class="storyline" data-reveal>Totul începe cu o idee. Noi o transformăm într-o experiență.</p>
+      </div>
+    </section>
+
     <!-- SERVICII -->
     <section id="servicii" aria-labelledby="services-title">
       <div class="container">
         <div class="section-head" data-reveal>
           <p class="section-kicker">Ce include serviciul</p>
-          <h2 id="services-title">Un bar gândit pentru evenimentul tău, nu o soluție copiată.</h2>
+          <h2 id="services-title">Fiecare eveniment e diferit. Barul tău ar trebui să fie la fel.</h2>
         </div>
 
         <div class="service-panel" data-reveal>
           <div>
-            <h3>Setup complet, prezentare elegantă, servire fluidă.</h3>
-            <p>Venim cu tot ce trebuie și ne adaptăm la locație, număr de invitați și atmosfera dorită.</p>
+            <h3>De la setup la ultima servire.</h3>
+            <p>Ne ocupăm de tot procesul — de la setup la ultima servire — adaptând fiecare detaliu la locație, invitați și atmosfera dorită.</p>
           </div>
           <ul class="service-list">
-            <li>Bar mobil elegant, fotogenic și ușor de integrat în decor.</li>
-            <li>Bartending profesionist — cocktailuri, long drinks, shoturi, clasice.</li>
-            <li>Meniu adaptat oricărui tip de eveniment și profil de invitați.</li>
-            <li>Recomandări clare pentru cantități și flux de servire.</li>
-            <li>Atmosferă prin interacțiune, prezentare și băuturi fotogenice.</li>
+            <li>Design elegant, integrat natural în orice decor.</li>
+            <li>Bartenderi profesioniști, cu focus pe experiență.</li>
+            <li>Meniu personalizat: cocktailuri, long drinks și shoturi.</li>
+            <li>Organizare clară pentru flux și cantități.</li>
+            <li>Interacțiune + prezentare = atmosferă, nu doar servire.</li>
           </ul>
         </div>
       </div>
@@ -976,35 +1108,37 @@
       <div class="container">
         <div class="section-head" data-reveal>
           <p class="section-kicker">Tipuri de evenimente</p>
-          <h2 id="events-title">Oriunde oamenii vin să sărbătorească.</h2>
+          <h2 id="events-title">Fiecare eveniment are energia lui. Noi știm cum să o amplificăm.</h2>
         </div>
 
         <div class="card-grid">
           <article class="event-card" data-reveal data-delay="1">
             <h3>Nunți</h3>
-            <p>Cocktailuri și atmosferă pentru cel mai important moment.</p>
+            <p>Cocktailuri care completează perfect unul dintre cele mai importante momente din viața voastră.</p>
           </article>
           <article class="event-card" data-reveal data-delay="2">
             <h3>Botezuri</h3>
-            <p>O zonă caldă și frumoasă pentru familie și prieteni.</p>
+            <p>O atmosferă caldă, relaxată — pentru familie și prieteni.</p>
           </article>
           <article class="event-card" data-reveal data-delay="3">
             <h3>Majorate</h3>
-            <p>Energie, impact vizual și servire atentă.</p>
+            <p>Energie, show și cocktailuri care țin ritmul petrecerii.</p>
           </article>
           <article class="event-card" data-reveal data-delay="4">
             <h3>Petreceri private</h3>
-            <p>O notă elegantă pentru aniversări și seri între prieteni.</p>
+            <p>Un plus de stil pentru seri care merită ținute minte.</p>
           </article>
           <article class="event-card" data-reveal data-delay="5">
             <h3>Corporate</h3>
-            <p>Servire profesionistă pentru networking, lansări și team events.</p>
+            <p>Profesionalism, flow și o experiență care susține imaginea evenimentului tău.</p>
           </article>
           <article class="event-card" data-reveal data-delay="6">
             <h3>Seri dansante</h3>
-            <p>Un bar cu vibe pentru social events și comunități active.</p>
+            <p>Un bar care devine parte din vibe, nu doar un punct de servire.</p>
           </article>
         </div>
+
+        <p class="storyline" data-reveal>Pentru că la final, nu contează doar ce beau invitații — ci cum se simt.</p>
       </div>
     </section>
 
@@ -1013,7 +1147,7 @@
       <div class="container">
         <div class="section-head" data-reveal>
           <p class="section-kicker">Galerie</p>
-          <h2 id="gallery-title">Detalii care arată bine în sală și în fotografii.</h2>
+          <h2 id="gallery-title">Detalii care transformă ideile în realitate.</h2>
         </div>
 
         <div class="video-feature" data-reveal>
@@ -1023,8 +1157,8 @@
           <div class="video-overlay">
             <div class="video-copy">
               <p class="section-kicker">Video</p>
-              <h3>Vezi atmosfera barului în mișcare.</h3>
-              <p>Un scurt clip poate arăta cel mai bine ritmul servirii, luminile, reacțiile invitaților și energia din jurul barului.</p>
+              <h3>Acolo unde începe povestea.</h3>
+              <p>Fiecare cocktail prinde formă prin atenție și precizie — If you can dream it, you can drink it.</p>
             </div>
           </div>
         </div>
@@ -1032,65 +1166,73 @@
         <div class="gallery-grid" data-reveal>
           <figure class="gallery-card">
             <img src="images/gallery-1.jpg" alt="Barman aprinzând rozmarin pentru un cocktail afumat, cu gheață și lumină dramatică">
-            <figcaption class="gallery-caption"><strong>Preparare cu efect</strong><span>Un moment vizual care atrage invitații spre bar.</span></figcaption>
-            <button type="button" data-src="images/gallery-1.jpg" data-caption="Preparare cu efect">Deschide imaginea 1</button>
+            <figcaption class="gallery-caption"><strong>Un punct central în designul evenimentului.</strong><span>Barul este pregătit să intre în scenă și să devină parte din atmosferă.</span></figcaption>
+            <button type="button" data-src="images/gallery-1.jpg" data-caption="Un punct central în designul evenimentului.">Deschide imaginea 1</button>
           </figure>
           <figure class="gallery-card">
             <img src="images/gallery-2.jpg" alt="Cocktail decorat cu fructe, mentă și paie roșii pe barul SALSA">
-            <figcaption class="gallery-caption"><strong>Detalii pregătite atent</strong><span>Garnituri și prezentare pentru fiecare pahar.</span></figcaption>
-            <button type="button" data-src="images/gallery-2.jpg" data-caption="Detalii pregătite atent">Deschide imaginea 2</button>
+            <figcaption class="gallery-caption"><strong>Integrat, nu impus.</strong><span>Un element de design care completează spațiul fără să îl domine.</span></figcaption>
+            <button type="button" data-src="images/gallery-2.jpg" data-caption="Integrat, nu impus.">Deschide imaginea 2</button>
           </figure>
           <figure class="gallery-card">
             <img src="images/gallery-3.jpg" alt="Invitați zâmbind la bar în timp ce sunt servite băuturi la eveniment">
-            <figcaption class="gallery-caption"><strong>Invitați în jurul barului</strong><span>Locul natural de socializare.</span></figcaption>
-            <button type="button" data-src="images/gallery-3.jpg" data-caption="Invitați în jurul barului">Deschide imaginea 3</button>
+            <figcaption class="gallery-caption"><strong>Momentul în care totul prinde viață.</strong><span>Barul devine locul natural de întâlnire al invitaților.</span></figcaption>
+            <button type="button" data-src="images/gallery-3.jpg" data-caption="Momentul în care totul prinde viață.">Deschide imaginea 3</button>
           </figure>
           <figure class="gallery-card">
             <img src="images/gallery-4.jpg" alt="Shoturi colorate cu portocală pregătite pe tavă pentru invitați">
-            <figcaption class="gallery-caption"><strong>Servire pentru grup</strong><span>Shoturi prezentate frumos, gata de petrecere.</span></figcaption>
-            <button type="button" data-src="images/gallery-4.jpg" data-caption="Servire pentru grup">Deschide imaginea 4</button>
+            <figcaption class="gallery-caption"><strong>Spectacol discret în spatele barului.</strong><span>Fiecare băutură este construită în fața privirilor.</span></figcaption>
+            <button type="button" data-src="images/gallery-4.jpg" data-caption="Spectacol discret în spatele barului.">Deschide imaginea 4</button>
           </figure>
           <figure class="gallery-card">
             <img src="images/gallery-5.jpg" alt="Cocktail cu lime, mentă, gheață și stropi de apă pe fundal închis">
-            <figcaption class="gallery-caption"><strong>Fresh și spectaculos</strong><span>Gheață, lime, mentă și mișcare în pahar.</span></figcaption>
-            <button type="button" data-src="images/gallery-5.jpg" data-caption="Fresh și spectaculos">Deschide imaginea 5</button>
+            <figcaption class="gallery-caption"><strong>Finalul care definește produsul.</strong><span>O ultimă atingere înainte ca băutura să fie servită.</span></figcaption>
+            <button type="button" data-src="images/gallery-5.jpg" data-caption="Finalul care definește produsul.">Deschide imaginea 5</button>
           </figure>
           <figure class="gallery-card">
             <img src="images/gallery-6.jpg" alt="Cocktail afumat cu rozmarin, gheață și lumină albastră pe fundal închis">
-            <figcaption class="gallery-caption"><strong>Semnătură aromatică</strong><span>Un cocktail afumat cu prezență premium.</span></figcaption>
-            <button type="button" data-src="images/gallery-6.jpg" data-caption="Semnătură aromatică">Deschide imaginea 6</button>
+            <figcaption class="gallery-caption"><strong>Un element de identitate vizuală.</strong><span>Textură, aromă și prezentare într-un singur moment.</span></figcaption>
+            <button type="button" data-src="images/gallery-6.jpg" data-caption="Un element de identitate vizuală.">Deschide imaginea 6</button>
           </figure>
           <figure class="gallery-card">
             <img src="images/gallery-7.jpg" alt="Patru cocktailuri colorate pregătite pe blat din lemn, cu barman în fundal">
-            <figcaption class="gallery-caption"><strong>Meniu colorat</strong><span>Varietate pentru invitați și un setup fotogenic.</span></figcaption>
-            <button type="button" data-src="images/gallery-7.jpg" data-caption="Meniu colorat">Deschide imaginea 7</button>
+            <figcaption class="gallery-caption"><strong>Echilibru între prospețime și vizual.</strong><span>Ingrediente simple transformate într-o experiență completă.</span></figcaption>
+            <button type="button" data-src="images/gallery-7.jpg" data-caption="Echilibru între prospețime și vizual.">Deschide imaginea 7</button>
           </figure>
           <figure class="gallery-card">
             <img src="images/gallery-8.jpg" alt="Bar SALSA cu cocktailuri, ustensile și logo-ul SALSA Bar Mobil luminat">
-            <figcaption class="gallery-caption"><strong>Setup de bar complet</strong><span>Branding, lumini și băuturi pregătite pentru seară.</span></figcaption>
-            <button type="button" data-src="images/gallery-8.jpg" data-caption="Setup de bar complet">Deschide imaginea 8</button>
+            <figcaption class="gallery-caption"><strong>Fiecare pahar are propria compoziție.</strong><span>Atenția se mută de la ingredient la rezultat.</span></figcaption>
+            <button type="button" data-src="images/gallery-8.jpg" data-caption="Fiecare pahar are propria compoziție.">Deschide imaginea 8</button>
           </figure>
           <figure class="gallery-card">
             <img src="images/gallery-9.jpg" alt="Barman turnând băutură albastră în shoturi lângă pahare decorate cu portocală">
-            <figcaption class="gallery-caption"><strong>Shoturi pregătite live</strong><span>Servire dinamică pentru momentele de energie.</span></figcaption>
-            <button type="button" data-src="images/gallery-9.jpg" data-caption="Shoturi pregătite live">Deschide imaginea 9</button>
+            <figcaption class="gallery-caption"><strong>Energia începe să crească.</strong><span>Servire rapidă, coordonată, în ritmul evenimentului.</span></figcaption>
+            <button type="button" data-src="images/gallery-9.jpg" data-caption="Energia începe să crească.">Deschide imaginea 9</button>
           </figure>
           <figure class="gallery-card">
             <img src="images/gallery-10.jpg" alt="Mâinile barmanului decorând shoturi cu portocală și boabe de cafea">
-            <figcaption class="gallery-caption"><strong>Finisaj atent</strong><span>Detalii mici care fac băuturile memorabile.</span></figcaption>
-            <button type="button" data-src="images/gallery-10.jpg" data-caption="Finisaj atent">Deschide imaginea 10</button>
+            <figcaption class="gallery-caption"><strong>Momente împărtășite.</strong><span>Shot-uri servite elegant, pentru clipe care aduc oamenii împreună.</span></figcaption>
+            <button type="button" data-src="images/gallery-10.jpg" data-caption="Momente împărtășite.">Deschide imaginea 10</button>
           </figure>
           <figure class="gallery-card">
             <img src="images/gallery-11.jpg" alt="Cocktail cu lime în fața logo-ului SALSA Bar Mobil">
-            <figcaption class="gallery-caption"><strong>Imagine de brand</strong><span>SALSA Bar Mobil prezent în decor, nu ascuns în fundal.</span></figcaption>
-            <button type="button" data-src="images/gallery-11.jpg" data-caption="Imagine de brand">Deschide imaginea 11</button>
+            <figcaption class="gallery-caption"><strong>Selecție pentru toate gusturile.</strong><span>O ofertă flexibilă, adaptată fiecărui tip de eveniment.</span></figcaption>
+            <button type="button" data-src="images/gallery-11.jpg" data-caption="Selecție pentru toate gusturile.">Deschide imaginea 11</button>
           </figure>
           <figure class="gallery-card">
             <img src="images/gallery-12.jpg" alt="Bar de eveniment cu rânduri de shoturi colorate și invitați în jur">
-            <figcaption class="gallery-caption"><strong>Eveniment în desfășurare</strong><span>Barul devine punctul activ al petrecerii.</span></figcaption>
-            <button type="button" data-src="images/gallery-12.jpg" data-caption="Eveniment în desfășurare">Deschide imaginea 12</button>
+            <figcaption class="gallery-caption"><strong>Totul se închide în același loc unde a început.</strong><span>O experiență construită pas cu pas, până la ultimul detaliu.</span></figcaption>
+            <button type="button" data-src="images/gallery-12.jpg" data-caption="Totul se închide în același loc unde a început.">Deschide imaginea 12</button>
+          </figure>
+          <figure class="gallery-card gallery-video-card">
+            <video controls preload="metadata" poster="images/gallery-13.jpg" aria-label="Video cu shot-uri pregătite live de SALSA Bar Mobil">
+              <source src="images/salsa-shots-video.mp4" type="video/mp4">
+            </video>
+            <figcaption class="gallery-caption"><strong>Apogeul serii.</strong><span>Shot-uri preparate live, într-un ritm care definește energia evenimentului.</span></figcaption>
           </figure>
         </div>
+
+        <p class="storyline" data-reveal>Tu aduci oamenii. Noi creăm atmosfera.</p>
       </div>
     </section>
 
@@ -1099,7 +1241,7 @@
       <div class="container">
         <div class="section-head" data-reveal>
           <p class="section-kicker">Ce spun clienții</p>
-          <h2 id="testimonials-title">Oamenii țin minte cum s-au simțit la bar.</h2>
+          <h2 id="testimonials-title">Oamenii nu își amintesc doar băuturile, ci atmosfera din jurul lor.</h2>
         </div>
 
         <div class="card-grid">
@@ -1127,7 +1269,7 @@
       <div class="container">
         <div class="cta-panel" data-reveal>
           <p class="section-kicker">Hai să vorbim</p>
-          <h2 id="final-cta-title">Vrei un bar care să devină atracția evenimentului?</h2>
+          <h2 id="final-cta-title">Vrei un bar care devine centrul evenimentului tău?</h2>
           <div class="cta-actions">
             <a class="btn btn-primary" href="https://wa.me/40743614513?text=Buna%2C%20as%20dori%20o%20oferta%20pentru%20SALSA%20Bar%20Mobil%20la%20un%20eveniment.%20Data%3A%20%20Locatie%3A%20%20Numar%20invitati%3A" target="_blank" rel="noopener">Cere ofertă pe WhatsApp</a>
             <a class="btn btn-secondary" href="tel:+40 743 614 513">Sună acum</a>
