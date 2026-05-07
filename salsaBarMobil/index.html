@@ -457,7 +457,7 @@
       width: 100%;
       aspect-ratio: 1 / 1;
       height: auto;
-      object-fit: cover;
+      object-fit: contain;
       background: #05030a;
     }
     .gallery-video-card:hover video {
@@ -1151,7 +1151,7 @@
         </div>
 
         <div class="video-feature" data-reveal>
-          <video class="video-bg" controls preload="metadata" poster="images/smoked-cocktail-detail.jpg" aria-label="Video de prezentare SALSA Bar Mobil">
+          <video class="video-bg" controls preload="metadata" poster="images/smoked-cocktail-detail.jpg" aria-label="Video de prezentare SALSA Bar Mobil" data-mobile-src="images/salsa-bar-video.mp4" data-desktop-src="images/salsa-bar-video2.mp4">
             <source src="images/salsa-bar-video.mp4" type="video/mp4">
           </video>
           <div class="video-overlay">
@@ -1394,6 +1394,25 @@
     const videoBg = document.querySelector(".video-bg");
     const videoFeature = document.querySelector(".video-feature");
     if (videoBg) {
+      const videoBreakpoint = window.matchMedia("(max-width: 619px)");
+      const syncResponsiveVideo = () => {
+        const nextSrc = videoBreakpoint.matches ? videoBg.dataset.mobileSrc : videoBg.dataset.desktopSrc;
+        if (!nextSrc || videoBg.dataset.activeSrc === nextSrc) return;
+
+        const wasPaused = videoBg.paused;
+        videoBg.querySelector("source").src = nextSrc;
+        videoBg.dataset.activeSrc = nextSrc;
+        videoBg.load();
+        if (!wasPaused) videoBg.play().catch(() => {});
+      };
+
+      syncResponsiveVideo();
+      if (typeof videoBreakpoint.addEventListener === "function") {
+        videoBreakpoint.addEventListener("change", syncResponsiveVideo);
+      } else {
+        videoBreakpoint.addListener(syncResponsiveVideo);
+      }
+
       videoBg.addEventListener("play", () => videoFeature.classList.add("is-playing"));
       videoBg.addEventListener("pause", () => videoFeature.classList.remove("is-playing"));
       videoBg.addEventListener("ended", () => videoFeature.classList.remove("is-playing"));
