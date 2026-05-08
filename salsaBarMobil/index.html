@@ -450,20 +450,6 @@
     }
     .gallery-card:hover img { transform: scale(1.06); }
 
-    .gallery-video-card {
-      min-height: 0;
-    }
-    .gallery-video-card video {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      height: auto;
-      object-fit: contain;
-      background: #05030a;
-    }
-    .gallery-video-card:hover video {
-      transform: none;
-    }
-
     .gallery-caption {
       position: static; z-index: 3;
       padding: 14px 16px;
@@ -927,8 +913,6 @@
 
       .gallery-card { display: flex; flex-direction: column; min-height: 270px; }
       .gallery-card img { aspect-ratio: auto; height: auto; flex: 1; min-height: 270px; }
-      .gallery-video-card { grid-column: span 2; }
-      .gallery-video-card video { aspect-ratio: 16 / 9; flex: 1; min-height: 270px; }
 
       .gallery-card:first-child, .gallery-card:nth-child(4) { grid-row: span 2; }
       .gallery-card:first-child img, .gallery-card:nth-child(4) img { min-height: 560px; }
@@ -980,7 +964,6 @@
       .gallery-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .gallery-card:first-child { grid-column: span 2; }
       .gallery-card:nth-child(4) { grid-column: span 2; }
-      .gallery-video-card { grid-column: span 2; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1224,12 +1207,19 @@
             <figcaption class="gallery-caption"><strong>Totul se închide în același loc unde a început.</strong><span>O experiență construită pas cu pas, până la ultimul detaliu.</span></figcaption>
             <button type="button" data-src="images/gallery-12.jpg" data-caption="Totul se închide în același loc unde a început.">Deschide imaginea 12</button>
           </figure>
-          <figure class="gallery-card gallery-video-card">
-            <video controls preload="metadata" poster="images/gallery-13.jpg" aria-label="Video cu shot-uri pregătite live de SALSA Bar Mobil">
-              <source src="images/salsa-shots-video.mp4" type="video/mp4">
-            </video>
-            <figcaption class="gallery-caption"><strong>Apogeul serii.</strong><span>Shot-uri preparate live, într-un ritm care definește energia evenimentului.</span></figcaption>
-          </figure>
+        </div>
+
+        <div class="video-feature" data-reveal>
+          <video class="video-bg" controls preload="metadata" poster="images/gallery-13.jpg" aria-label="Video cu shot-uri pregătite live de SALSA Bar Mobil">
+            <source src="images/salsa-shots-video.mp4" type="video/mp4">
+          </video>
+          <div class="video-overlay">
+            <div class="video-copy">
+              <p class="section-kicker">Video</p>
+              <h3>Apogeul serii.</h3>
+              <p>Shot-uri preparate live, într-un ritm care definește energia evenimentului.</p>
+            </div>
+          </div>
         </div>
 
         <p class="storyline" data-reveal>Tu aduci oamenii. Noi creăm atmosfera.</p>
@@ -1391,32 +1381,35 @@
 
     document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
 
-    const videoBg = document.querySelector(".video-bg");
-    const videoFeature = document.querySelector(".video-feature");
-    if (videoBg) {
-      const videoBreakpoint = window.matchMedia("(max-width: 619px)");
-      const syncResponsiveVideo = () => {
-        const nextSrc = videoBreakpoint.matches ? videoBg.dataset.mobileSrc : videoBg.dataset.desktopSrc;
-        if (!nextSrc || videoBg.dataset.activeSrc === nextSrc) return;
+    document.querySelectorAll(".video-feature").forEach((videoFeature) => {
+      const videoBg = videoFeature.querySelector(".video-bg");
+      if (!videoBg) return;
 
-        const wasPaused = videoBg.paused;
-        videoBg.querySelector("source").src = nextSrc;
-        videoBg.dataset.activeSrc = nextSrc;
-        videoBg.load();
-        if (!wasPaused) videoBg.play().catch(() => {});
-      };
+      if (videoBg.dataset.mobileSrc || videoBg.dataset.desktopSrc) {
+        const videoBreakpoint = window.matchMedia("(max-width: 619px)");
+        const syncResponsiveVideo = () => {
+          const nextSrc = videoBreakpoint.matches ? videoBg.dataset.mobileSrc : videoBg.dataset.desktopSrc;
+          if (!nextSrc || videoBg.dataset.activeSrc === nextSrc) return;
 
-      syncResponsiveVideo();
-      if (typeof videoBreakpoint.addEventListener === "function") {
-        videoBreakpoint.addEventListener("change", syncResponsiveVideo);
-      } else {
-        videoBreakpoint.addListener(syncResponsiveVideo);
+          const wasPaused = videoBg.paused;
+          videoBg.querySelector("source").src = nextSrc;
+          videoBg.dataset.activeSrc = nextSrc;
+          videoBg.load();
+          if (!wasPaused) videoBg.play().catch(() => {});
+        };
+
+        syncResponsiveVideo();
+        if (typeof videoBreakpoint.addEventListener === "function") {
+          videoBreakpoint.addEventListener("change", syncResponsiveVideo);
+        } else {
+          videoBreakpoint.addListener(syncResponsiveVideo);
+        }
       }
 
       videoBg.addEventListener("play", () => videoFeature.classList.add("is-playing"));
       videoBg.addEventListener("pause", () => videoFeature.classList.remove("is-playing"));
       videoBg.addEventListener("ended", () => videoFeature.classList.remove("is-playing"));
-    }
+    });
   </script>
 </body>
 </html>
