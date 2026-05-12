@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zam-Tastic Mobile Detailing – Kyle, TX | We Come To You</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:   #080A10;
+    --dark:    #0D1018;
+    --card:    #111520;
+    --blue:    #1A8FE3;
+    --blue-l:  #4DB8FF;
+    --blue-d:  #0E5FA0;
+    --cyan:    #00D4FF;
+    --white:   #F0F4FF;
+    --grey:    #6A7A90;
+    --border:  rgba(26,143,227,0.15);
+    --gold:    #F0C040;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    background:var(--black);
+    color:var(--white);
+    font-family:'Barlow', sans-serif;
+    font-weight:400;
+    overflow-x:hidden;
+  }
+
+  /* ── STAR FIELD ── */
+  body::before {
+    content:'';
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(ellipse 80% 60% at 80% 20%, rgba(26,143,227,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 10% 90%, rgba(0,212,255,0.05) 0%, transparent 60%);
+  }
+
+  /* ── NAV ── */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1rem 4rem;
+    background:rgba(8,10,16,0.9);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-logo {
+    font-family:'Bebas Neue', sans-serif;
+    font-size:1.6rem; letter-spacing:0.1em;
+    color:var(--white); display:flex; align-items:center; gap:0.5rem;
+  }
+  .nav-logo .zam { color:var(--blue-l); }
+  .nav-logo .dot { color:var(--cyan); font-size:0.5em; margin:0 0.1rem; }
+
+  .nav-links { display:flex; gap:2.2rem; list-style:none; }
+  .nav-links a {
+    text-decoration:none; color:var(--grey);
+    font-size:0.78rem; font-weight:600;
+    letter-spacing:0.1em; text-transform:uppercase;
+    transition:color 0.3s;
+  }
+  .nav-links a:hover { color:var(--cyan); }
+
+  .nav-cta {
+    background:var(--blue); color:white;
+    text-decoration:none; padding:0.6rem 1.5rem;
+    font-size:0.75rem; font-weight:700;
+    letter-spacing:0.1em; text-transform:uppercase;
+    clip-path:polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition:all 0.3s;
+  }
+  .nav-cta:hover { background:var(--cyan); color:var(--black); }
+
+  .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+  .hamburger span { width:22px; height:2px; background:var(--white); display:block; transition:all 0.3s; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height:100vh; position:relative; overflow:hidden;
+    display:flex; align-items:center;
+    padding:8rem 5rem 5rem;
+  }
+
+  /* animated grid */
+  .hero-grid {
+    position:absolute; inset:0; z-index:0; opacity:0.04;
+    background-image:
+      linear-gradient(rgba(26,143,227,1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,143,227,1) 1px, transparent 1px);
+    background-size:60px 60px;
+    animation:gridMove 20s linear infinite;
+  }
+  .hero-glow {
+    position:absolute; top:-10%; right:-5%;
+    width:600px; height:600px;
+    background:radial-gradient(circle, rgba(26,143,227,0.15) 0%, transparent 70%);
+    pointer-events:none;
+    animation:pulse-glow 4s ease-in-out infinite;
+  }
+
+  .hero-content { position:relative; z-index:2; flex:1; max-width:680px; }
+
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:0.6rem;
+    border:1px solid rgba(26,143,227,0.4);
+    background:rgba(26,143,227,0.08);
+    padding:0.35rem 1rem;
+    font-size:0.7rem; font-weight:700; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--blue-l);
+    margin-bottom:1.8rem;
+    opacity:0; animation:fadeUp 0.6s 0.1s forwards;
+  }
+  .hero-badge::before { content:''; width:6px; height:6px; background:var(--cyan); border-radius:50%; animation:blink 1.5s infinite; }
+
+  .hero-title {
+    font-family:'Bebas Neue', sans-serif;
+    font-size:clamp(4.5rem, 12vw, 11rem);
+    line-height:0.88; letter-spacing:0.04em;
+    margin-bottom:1rem;
+    opacity:0; animation:fadeUp 0.9s 0.25s forwards;
+  }
+  .hero-title .zam { color:var(--blue-l); display:block; }
+  .hero-title .tastic {
+    color:transparent;
+    -webkit-text-stroke:2px var(--blue-l);
+    display:block;
+  }
+  .hero-title .mobile { color:var(--white); font-size:0.38em; letter-spacing:0.12em; display:block; margin-top:0.2rem; }
+
+  .hero-sub {
+    font-size:clamp(1rem, 2vw, 1.25rem); font-weight:300;
+    color:var(--grey); margin-bottom:1.5rem; line-height:1.65;
+    opacity:0; animation:fadeUp 0.8s 0.4s forwards; max-width:520px;
+  }
+  .hero-sub strong { color:var(--cyan); font-weight:600; }
+
+  .hero-tags {
+    display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:2.5rem;
+    opacity:0; animation:fadeUp 0.8s 0.5s forwards;
+  }
+  .htag {
+    padding:0.3rem 0.9rem;
+    border:1px solid var(--border); color:var(--grey);
+    font-size:0.72rem; font-weight:600; letter-spacing:0.06em;
+    background:rgba(26,143,227,0.05);
+    transition:all 0.3s;
+  }
+  .htag:hover { border-color:var(--cyan); color:var(--cyan); background:rgba(0,212,255,0.08); }
+
+  .hero-actions {
+    display:flex; gap:1rem; flex-wrap:wrap; align-items:center;
+    opacity:0; animation:fadeUp 0.8s 0.6s forwards;
+  }
+  .btn-blue {
+    background:var(--blue); color:white; text-decoration:none;
+    padding:1rem 2.2rem; font-size:0.82rem; font-weight:700;
+    letter-spacing:0.1em; text-transform:uppercase;
+    clip-path:polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition:all 0.3s; display:inline-flex; align-items:center; gap:0.5rem;
+    box-shadow:0 0 30px rgba(26,143,227,0.3);
+  }
+  .btn-blue:hover { background:var(--cyan); color:var(--black); box-shadow:0 0 50px rgba(0,212,255,0.4); }
+  .btn-ghost {
+    border:1px solid rgba(26,143,227,0.4); color:var(--blue-l);
+    text-decoration:none; padding:1rem 2.2rem;
+    font-size:0.82rem; font-weight:700;
+    letter-spacing:0.1em; text-transform:uppercase;
+    transition:all 0.3s;
+  }
+  .btn-ghost:hover { border-color:var(--cyan); color:var(--cyan); }
+
+  /* HERO RIGHT */
+  .hero-right {
+    flex:1; max-width:450px;
+    position:relative; z-index:2;
+    opacity:0; animation:fadeIn 1s 0.3s forwards;
+  }
+  .hcard {
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:2.5rem;
+    position:relative; overflow:hidden;
+    clip-path:polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+  .hcard::before {
+    content:'';
+    position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, var(--blue), var(--cyan), transparent);
+  }
+  .hcard-title {
+    font-family:'Bebas Neue', sans-serif;
+    font-size:1.2rem; letter-spacing:0.15em;
+    color:var(--blue-l); margin-bottom:1.5rem;
+  }
+
+  .price-tier { margin-bottom:1.5rem; }
+  .pt-label {
+    font-size:0.65rem; font-weight:700; letter-spacing:0.2em;
+    text-transform:uppercase; color:var(--grey); margin-bottom:0.8rem;
+    display:flex; align-items:center; gap:0.5rem;
+  }
+  .pt-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+  .pt-rows { display:flex; flex-direction:column; gap:0.5rem; }
+  .pt-row {
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:0.82rem;
+  }
+  .pt-name { color:rgba(240,244,255,0.7); }
+  .pt-price { font-family:'Bebas Neue', sans-serif; font-size:1.1rem; color:var(--cyan); letter-spacing:0.05em; }
+
+  .pt-divider { height:1px; background:var(--border); margin:1rem 0; }
+
+  .hcard-addons { }
+  .addon-row {
+    display:flex; justify-content:space-between;
+    font-size:0.78rem; color:var(--grey); padding:0.3rem 0;
+  }
+  .addon-price { color:var(--blue-l); }
+
+  .hcard-cta {
+    margin-top:1.5rem;
+    display:block; text-align:center;
+    background:var(--blue); color:white; text-decoration:none;
+    padding:0.9rem;
+    font-size:0.75rem; font-weight:700; letter-spacing:0.12em;
+    text-transform:uppercase;
+    transition:all 0.3s;
+    clip-path:polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .hcard-cta:hover { background:var(--cyan); color:var(--black); box-shadow:0 0 30px rgba(0,212,255,0.3); }
+
+  .hero-stats {
+    display:flex; gap:1.5rem; margin-top:3rem;
+    opacity:0; animation:fadeUp 0.8s 0.75s forwards;
+    border-top:1px solid var(--border); padding-top:2rem;
+  }
+  .hstat { }
+  .hstat-num {
+    font-family:'Bebas Neue', sans-serif;
+    font-size:2.5rem; color:var(--blue-l); line-height:1;
+  }
+  .hstat-label { font-size:0.65rem; color:var(--grey); letter-spacing:0.12em; text-transform:uppercase; margin-top:0.2rem; }
+  .hstat-sep { width:1px; background:var(--border); align-self:stretch; }
+
+  /* ── TICKER ── */
+  .ticker {
+    background:var(--blue); padding:0.85rem 0; overflow:hidden;
+  }
+  .ticker-track {
+    display:flex; animation:marquee 20s linear infinite; white-space:nowrap;
+  }
+  .ticker-item {
+    padding:0 2rem; font-size:0.72rem; font-weight:700;
+    letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.9);
+  }
+  .ticker-sep { color:rgba(255,255,255,0.4); padding:0 0.5rem; }
+
+  /* ── SECTION BASE ── */
+  .sec-eye {
+    font-size:0.68rem; font-weight:700; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--blue-l);
+    display:flex; align-items:center; gap:0.7rem; margin-bottom:1rem;
+  }
+  .sec-eye::before { content:''; width:20px; height:2px; background:var(--cyan); }
+  .sec-title {
+    font-family:'Bebas Neue', sans-serif;
+    font-size:clamp(2.5rem, 5vw, 5rem);
+    letter-spacing:0.04em; line-height:0.95;
+  }
+  .sec-title em { color:var(--blue-l); font-style:normal; }
+
+  /* ── ABOUT ── */
+  .about {
+    padding:8rem 5rem; display:grid;
+    grid-template-columns:1fr 1fr; gap:7rem;
+    align-items:center; max-width:1400px; margin:0 auto;
+    position:relative; z-index:1;
+  }
+  .about-text { }
+  .about-body { font-size:0.92rem; line-height:1.9; color:var(--grey); margin-bottom:1rem; }
+  .about-quote {
+    border-left:3px solid var(--blue); padding-left:1.2rem;
+    margin:1.5rem 0;
+    font-size:1rem; font-weight:600; color:var(--white);
+    font-style:italic; line-height:1.6;
+  }
+  .about-features {
+    display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-top:1.5rem;
+  }
+  .af-item {
+    display:flex; align-items:center; gap:0.7rem;
+    font-size:0.83rem; font-weight:600; color:var(--white);
+    padding:0.8rem; background:var(--card);
+    border:1px solid var(--border); transition:border-color 0.3s;
+  }
+  .af-item:hover { border-color:var(--blue); }
+  .af-icon { font-size:1rem; color:var(--cyan); }
+
+  .about-visual { position:relative; }
+  .av-main {
+    background:var(--card); border:1px solid var(--border);
+    aspect-ratio:4/5; display:flex; flex-direction:column;
+    justify-content:flex-end; position:relative; overflow:hidden;
+    clip-path:polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+  }
+  .av-main::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg, var(--blue), var(--cyan));
+  }
+  .av-center {
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:8rem; letter-spacing:0.1em;
+    color:rgba(26,143,227,0.06); line-height:1; user-select:none;
+    flex-direction:column;
+  }
+  .av-badge-cars {
+    position:absolute; top:1.5rem; right:1.5rem;
+    background:var(--blue);
+    clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+    padding:0.8rem 1.5rem; text-align:center;
+  }
+  .av-badge-cars .num { font-family:'Bebas Neue', sans-serif; font-size:2rem; color:white; line-height:1; }
+  .av-badge-cars .lbl { font-size:0.6rem; color:rgba(255,255,255,0.7); letter-spacing:0.12em; text-transform:uppercase; }
+
+  .av-bottom {
+    position:relative; z-index:1; padding:2rem;
+    background:linear-gradient(to top, rgba(8,10,16,0.95), transparent);
+  }
+  .av-bottom h3 { font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:0.08em; margin-bottom:0.3rem; }
+  .av-bottom p { font-size:0.75rem; color:var(--grey); letter-spacing:0.1em; text-transform:uppercase; }
+
+  .av-stat-strip {
+    display:flex; gap:0; margin-top:1rem; border:1px solid var(--border);
+  }
+  .avs { flex:1; padding:1rem; text-align:center; border-right:1px solid var(--border); }
+  .avs:last-child { border-right:none; }
+  .avs-num { font-family:'Bebas Neue', sans-serif; font-size:1.8rem; color:var(--cyan); line-height:1; }
+  .avs-lbl { font-size:0.6rem; color:var(--grey); letter-spacing:0.1em; text-transform:uppercase; margin-top:0.2rem; }
+
+  /* ── SERVICES ── */
+  .services {
+    background:var(--dark); padding:8rem 5rem;
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    position:relative; z-index:1;
+  }
+  .services-header {
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin-bottom:4rem;
+  }
+  .services-link {
+    color:var(--blue-l); text-decoration:none; font-size:0.75rem;
+    font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+    border-bottom:1px solid rgba(26,143,227,0.3); padding-bottom:0.2rem;
+    transition:color 0.3s;
+  }
+  .services-link:hover { color:var(--cyan); }
+
+  .services-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:1px; background:rgba(26,143,227,0.06);
+    max-width:1200px; margin:0 auto;
+  }
+  .svc {
+    background:var(--dark); padding:2.5rem 2rem;
+    position:relative; overflow:hidden;
+    transition:background 0.4s;
+    border-bottom:2px solid transparent;
+  }
+  .svc:hover { background:#131820; border-bottom-color:var(--blue); }
+  .svc-num {
+    font-family:'Bebas Neue', sans-serif; font-size:4rem;
+    color:rgba(26,143,227,0.08); line-height:1;
+    position:absolute; top:1rem; right:1.5rem;
+    transition:color 0.4s; pointer-events:none;
+  }
+  .svc:hover .svc-num { color:rgba(26,143,227,0.15); }
+  .svc-icon { font-size:2rem; margin-bottom:1.2rem; display:block; }
+  .svc-name { font-family:'Bebas Neue', sans-serif; font-size:1.5rem; letter-spacing:0.06em; color:var(--white); margin-bottom:0.5rem; }
+  .svc-desc { font-size:0.82rem; color:var(--grey); line-height:1.8; margin-bottom:1.2rem; }
+  .svc-items { display:flex; flex-direction:column; gap:0.4rem; }
+  .svc-item {
+    display:flex; align-items:center; gap:0.6rem;
+    font-size:0.75rem; color:rgba(240,244,255,0.55);
+  }
+  .svc-item::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--blue); flex-shrink:0; }
+
+  /* ── PRICING SECTION ── */
+  .pricing {
+    padding:8rem 5rem; position:relative; z-index:1;
+    overflow:hidden;
+  }
+  .pricing::after {
+    content:'ZAM'; position:absolute; bottom:-2rem; right:-1rem;
+    font-family:'Bebas Neue', sans-serif; font-size:20rem;
+    color:rgba(26,143,227,0.03); line-height:1; pointer-events:none;
+  }
+  .pricing-header { text-align:center; margin-bottom:5rem; }
+
+  .pricing-cards {
+    display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;
+    max-width:1000px; margin:0 auto;
+  }
+  .price-card {
+    background:var(--card); border:1px solid var(--border);
+    padding:2.5rem; position:relative;
+    clip-path:polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+    transition:border-color 0.4s, box-shadow 0.4s;
+  }
+  .price-card:hover { border-color:rgba(26,143,227,0.5); box-shadow:0 0 60px rgba(26,143,227,0.08); }
+  .price-card.featured {
+    border-color:var(--blue);
+    box-shadow:0 0 40px rgba(26,143,227,0.15);
+  }
+  .price-card.featured::before {
+    content:'MOST POPULAR';
+    position:absolute; top:-1px; left:0; right:0;
+    background:var(--blue); text-align:center;
+    font-size:0.62rem; font-weight:700; letter-spacing:0.2em;
+    padding:0.4rem; color:white;
+    clip-path:polygon(0 0, 100% 0, calc(100% - 16px) 100%, 16px 100%);
+  }
+  .pc-tier {
+    font-size:0.65rem; font-weight:700; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--blue-l); margin-bottom:1rem;
+    margin-top:0.5rem;
+  }
+  .price-card.featured .pc-tier { margin-top:1.5rem; }
+  .pc-name { font-family:'Bebas Neue', sans-serif; font-size:2.2rem; letter-spacing:0.06em; margin-bottom:0.5rem; }
+  .pc-sub { font-size:0.8rem; color:var(--grey); margin-bottom:2rem; }
+
+  .pc-rows { display:flex; flex-direction:column; gap:0; border-top:1px solid var(--border); }
+  .pc-row {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:0.85rem 0; border-bottom:1px solid rgba(26,143,227,0.06);
+    font-size:0.85rem;
+  }
+  .pc-row-name { color:rgba(240,244,255,0.65); }
+  .pc-row-price { font-family:'Bebas Neue', sans-serif; font-size:1.3rem; color:var(--cyan); letter-spacing:0.04em; }
+
+  .addons-card {
+    background:rgba(26,143,227,0.05); border:1px solid var(--border);
+    padding:2rem; max-width:1000px; margin:1.5rem auto 0;
+    clip-path:polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+  }
+  .addons-title { font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--blue-l); margin-bottom:1rem; }
+  .addons-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.8rem; }
+  .addon-item { display:flex; justify-content:space-between; font-size:0.8rem; padding:0.5rem 0; border-bottom:1px solid rgba(26,143,227,0.06); }
+  .addon-name { color:var(--grey); }
+  .addon-p { color:var(--gold); font-weight:700; }
+
+  /* ── GALLERY ── */
+  .gallery {
+    background:var(--dark); padding:8rem 5rem;
+    border-top:1px solid var(--border);
+    position:relative; z-index:1;
+  }
+  .gallery-header { text-align:center; margin-bottom:4rem; }
+  .gallery-grid {
+    display:grid; grid-template-columns:repeat(4,1fr);
+    grid-template-rows:250px 250px; gap:6px;
+    max-width:1300px; margin:0 auto;
+  }
+  .gc {
+    position:relative; overflow:hidden; background:var(--card);
+    border:1px solid var(--border); cursor:pointer;
+  }
+  .gc:nth-child(1) { grid-column:1/3; }
+  .gc:nth-child(5) { grid-column:3/5; }
+  .gc-inner {
+    position:absolute; inset:0; display:flex;
+    align-items:center; justify-content:center;
+    font-size:3.5rem; transition:transform 0.5s;
+  }
+  .gc:hover .gc-inner { transform:scale(1.08); }
+  .gc-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(8,10,16,0.85) 0%, transparent 60%);
+    opacity:0; transition:opacity 0.4s;
+  }
+  .gc:hover .gc-overlay { opacity:1; }
+  .gc-label {
+    position:absolute; bottom:1rem; left:1.2rem; right:1.2rem; z-index:1;
+    transform:translateY(10px); opacity:0; transition:all 0.4s;
+    font-family:'Bebas Neue', sans-serif; letter-spacing:0.08em;
+  }
+  .gc:hover .gc-label { transform:translateY(0); opacity:1; }
+  .gc-label span { display:block; font-size:0.6rem; color:var(--cyan); letter-spacing:0.18em; text-transform:uppercase; margin-bottom:0.15rem; }
+
+  .gcb1 { background:linear-gradient(145deg,#1A3050,#0A1828); }
+  .gcb2 { background:linear-gradient(145deg,#101828,#0E2040); }
+  .gcb3 { background:linear-gradient(145deg,#182038,#0A1020); }
+  .gcb4 { background:linear-gradient(145deg,#0E1830,#08101C); }
+  .gcb5 { background:linear-gradient(145deg,#1A2840,#0C1830); }
+  .gcb6 { background:linear-gradient(145deg,#152030,#0A1520); }
+  .gcb7 { background:linear-gradient(145deg,#101A28,#080E18); }
+  .gcb8 { background:linear-gradient(145deg,#182538,#0E1828); }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials {
+    padding:8rem 5rem; position:relative; z-index:1;
+  }
+  .test-header { text-align:center; margin-bottom:5rem; }
+  .test-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:1.5px; background:rgba(26,143,227,0.06);
+    max-width:1200px; margin:0 auto;
+  }
+  .test-card {
+    background:var(--black); padding:2.5rem;
+    transition:background 0.3s;
+  }
+  .test-card:hover { background:var(--card); }
+  .tc-icon { font-size:1.8rem; margin-bottom:1rem; display:block; }
+  .tc-text {
+    font-size:0.9rem; font-style:italic; line-height:1.8;
+    color:rgba(240,244,255,0.65); margin-bottom:1.5rem;
+  }
+  .tc-line { width:24px; height:2px; background:var(--blue); margin-bottom:1rem; }
+  .tc-name { font-size:0.82rem; font-weight:700; color:var(--blue-l); }
+  .tc-role { font-size:0.72rem; color:var(--grey); margin-top:0.2rem; }
+  .tc-stars { color:var(--gold); font-size:0.85rem; letter-spacing:0.05em; margin-bottom:0.8rem; }
+
+  .social-proof {
+    display:flex; align-items:center; justify-content:center;
+    gap:3rem; margin-top:5rem;
+    border:1px solid var(--border); padding:3rem;
+    max-width:800px; margin:5rem auto 0;
+    clip-path:polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+  .sp-num {
+    font-family:'Bebas Neue', sans-serif;
+    font-size:5.5rem; color:var(--blue-l); line-height:1;
+  }
+  .sp-sep { width:1px; height:80px; background:var(--border); }
+  .sp-text { }
+  .sp-title { font-family:'Bebas Neue', sans-serif; font-size:1.8rem; letter-spacing:0.05em; margin-bottom:0.3rem; }
+  .sp-sub { font-size:0.82rem; color:var(--grey); line-height:1.65; }
+
+  /* ── AREAS ── */
+  .areas {
+    background:var(--blue); padding:5rem;
+    position:relative; z-index:1; overflow:hidden;
+  }
+  .areas::before {
+    content:'📍'; position:absolute; right:3rem; bottom:-2rem;
+    font-size:15rem; opacity:0.06; pointer-events:none;
+  }
+  .areas-inner {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:5rem; align-items:center; max-width:1200px; margin:0 auto;
+  }
+  .areas-content .sec-title { color:white; margin-bottom:1rem; }
+  .areas-content .sec-title em { color:rgba(255,255,255,0.5); }
+  .areas-text { color:rgba(255,255,255,0.7); font-size:0.9rem; line-height:1.8; margin-bottom:2rem; }
+  .areas-cities {
+    display:grid; grid-template-columns:1fr 1fr; gap:0.6rem;
+  }
+  .area-chip {
+    background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2);
+    padding:0.8rem 1.2rem;
+    font-size:0.85rem; font-weight:700; color:white;
+    display:flex; align-items:center; gap:0.5rem;
+    transition:background 0.3s;
+  }
+  .area-chip:hover { background:rgba(255,255,255,0.2); }
+  .area-chip::before { content:'📍'; font-size:0.9rem; }
+
+  .areas-cta {
+    background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.2);
+    padding:2.5rem; text-align:center;
+  }
+  .areas-cta h3 { font-family:'Bebas Neue', sans-serif; font-size:2rem; letter-spacing:0.08em; margin-bottom:0.5rem; }
+  .areas-cta p { color:rgba(255,255,255,0.65); font-size:0.85rem; margin-bottom:1.5rem; }
+  .areas-cta a {
+    display:inline-block; background:white; color:var(--blue);
+    text-decoration:none; padding:0.9rem 2rem;
+    font-size:0.8rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+    transition:all 0.3s;
+    clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+  }
+  .areas-cta a:hover { background:var(--black); color:var(--cyan); }
+
+  /* ── CONTACT ── */
+  .contact {
+    padding:8rem 5rem; display:grid;
+    grid-template-columns:1fr 1fr; gap:6rem;
+    max-width:1400px; margin:0 auto;
+    align-items:start; position:relative; z-index:1;
+  }
+  .contact-left .sec-title { margin-bottom:2rem; }
+  .contact-text { font-size:0.9rem; color:var(--grey); line-height:1.85; margin-bottom:2rem; }
+  .contact-cards { display:flex; flex-direction:column; gap:0.8rem; }
+  .cc {
+    display:flex; align-items:center; gap:1.2rem;
+    border:1px solid var(--border); padding:1.2rem 1.5rem;
+    background:var(--card); text-decoration:none; color:var(--white);
+    transition:all 0.3s;
+    clip-path:polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+  }
+  .cc:hover { border-color:var(--blue); background:rgba(26,143,227,0.08); transform:translateX(6px); }
+  .cc-icon {
+    width:42px; height:42px; min-width:42px;
+    background:rgba(26,143,227,0.1); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center; font-size:1rem;
+  }
+  .cc-lbl { font-size:0.62rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--blue-l); margin-bottom:0.2rem; }
+  .cc-val { font-size:0.9rem; font-weight:600; }
+
+  .map-frame { border:1px solid var(--border); overflow:hidden; height:360px; filter:saturate(0.3) brightness(0.7) hue-rotate(190deg); }
+  .map-frame iframe { width:100%; height:100%; border:none; }
+  .map-btn {
+    display:block; text-align:center; margin-top:0.8rem;
+    background:var(--blue); color:white; text-decoration:none;
+    padding:1rem; font-size:0.78rem; font-weight:700;
+    letter-spacing:0.1em; text-transform:uppercase;
+    transition:all 0.3s;
+    clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+  }
+  .map-btn:hover { background:var(--cyan); color:var(--black); }
+
+  /* ── CTA FINAL ── */
+  .cta-final {
+    background:var(--dark); padding:7rem 5rem; text-align:center;
+    border-top:1px solid var(--border); position:relative; z-index:1;
+    overflow:hidden;
+  }
+  .cta-final::before {
+    content:''; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:600px; height:600px;
+    background:radial-gradient(circle, rgba(26,143,227,0.08) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .cta-final h2 {
+    font-family:'Bebas Neue', sans-serif;
+    font-size:clamp(3rem,8vw,7rem); letter-spacing:0.04em;
+    color:var(--white); margin-bottom:0.5rem; position:relative; z-index:1;
+  }
+  .cta-final h2 span { color:var(--cyan); }
+  .cta-final p { color:var(--grey); font-size:1rem; line-height:1.7; margin-bottom:2.5rem; max-width:500px; margin-left:auto; margin-right:auto; }
+  .cta-final .btn-blue { margin:0 auto; font-size:1rem; padding:1.1rem 2.8rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background:#050608; border-top:1px solid var(--border);
+    padding:4rem 5rem 2rem; position:relative; z-index:1;
+  }
+  .footer-top {
+    display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem;
+    padding-bottom:3rem; border-bottom:1px solid rgba(26,143,227,0.08);
+    margin-bottom:2rem;
+  }
+  .footer-logo {
+    font-family:'Bebas Neue', sans-serif;
+    font-size:2rem; letter-spacing:0.1em; color:var(--white);
+    display:block; margin-bottom:0.8rem;
+  }
+  .footer-logo span { color:var(--blue-l); }
+  .footer-tag { font-size:0.82rem; color:rgba(240,244,255,0.25); line-height:1.8; max-width:260px; font-style:italic; }
+  .footer-col h4 { font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--blue-l); margin-bottom:1.2rem; }
+  .footer-col ul { list-style:none; }
+  .footer-col li { margin-bottom:0.65rem; }
+  .footer-col a { color:rgba(240,244,255,0.3); text-decoration:none; font-size:0.84rem; transition:color 0.3s; }
+  .footer-col a:hover { color:rgba(240,244,255,0.75); }
+  .footer-bottom {
+    display:flex; justify-content:space-between;
+    color:rgba(240,244,255,0.15); font-size:0.72rem;
+  }
+
+  /* ── ANIMS ── */
+  @keyframes fadeUp   { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn   { from{opacity:0}to{opacity:1} }
+  @keyframes marquee  { from{transform:translateX(0)}to{transform:translateX(-50%)} }
+  @keyframes gridMove { from{background-position:0 0}to{background-position:60px 60px} }
+  @keyframes blink    { 0%,100%{opacity:1}50%{opacity:0.2} }
+  @keyframes pulse-glow { 0%,100%{opacity:0.6}50%{opacity:1} }
+
+  /* ── MOBILE ── */
+  @media(max-width:900px){
+    nav{padding:1rem 1.5rem;}
+    .nav-links,.nav-cta{display:none;}
+    .hamburger{display:flex;}
+    nav.open .nav-links{
+      display:flex;flex-direction:column;
+      position:fixed;inset:0;top:58px;
+      background:var(--black);
+      padding:3rem 2rem;align-items:center;
+      justify-content:center;gap:1.5rem;z-index:99;
+    }
+    .hero{flex-direction:column;padding:6rem 1.5rem 4rem;gap:2.5rem;}
+    .hero-right{max-width:100%;width:100%;}
+    .hero-stats{gap:1rem;}
+    .about{grid-template-columns:1fr;padding:4rem 1.5rem;gap:3rem;}
+    .about-features{grid-template-columns:1fr;}
+    .services{padding:4rem 1.5rem;}
+    .services-header{flex-direction:column;gap:1rem;align-items:flex-start;}
+    .services-grid{grid-template-columns:1fr;}
+    .pricing{padding:4rem 1.5rem;}
+    .pricing-cards{grid-template-columns:1fr;}
+    .addons-grid{grid-template-columns:1fr 1fr;}
+    .gallery{padding:4rem 1.5rem;}
+    .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+    .gc:nth-child(1),.gc:nth-child(5){grid-column:auto;}
+    .gc{min-height:170px;}
+    .testimonials{padding:4rem 1.5rem;}
+    .test-grid{grid-template-columns:1fr;}
+    .areas{padding:4rem 1.5rem;}
+    .areas-inner{grid-template-columns:1fr;gap:3rem;}
+    .contact{grid-template-columns:1fr;padding:4rem 1.5rem;gap:3rem;}
+    .map-frame{height:260px;}
+    .cta-final{padding:5rem 1.5rem;}
+    footer{padding:3rem 1.5rem 1.5rem;}
+    .footer-top{grid-template-columns:1fr;gap:2rem;}
+    .footer-bottom{flex-direction:column;gap:0.5rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-logo">ZAM<span class="dot">·</span><span class="zam">TASTIC</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="tel:+17377576322" class="nav-cta">📲 Book Now</a>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Kyle, TX · Mobile Detailing · We Come To You</div>
+    <h1 class="hero-title">
+      <span class="zam">ZAM</span>
+      <span class="tastic">TASTIC</span>
+      <span class="mobile">Mobile Detailing</span>
+    </h1>
+    <p class="hero-sub">
+      <strong>Consistency. Dedication. Results.</strong><br>
+      Family-owned. 500+ cars detailed. We come to you — anywhere in Austin, Kyle, Buda & surrounding areas.
+    </p>
+    <div class="hero-tags">
+      <span class="htag">🚗 Mobile Service</span>
+      <span class="htag">🧼 Interior & Exterior</span>
+      <span class="htag">✨ Full Details</span>
+      <span class="htag">🐾 Pet Hair Removal</span>
+      <span class="htag">💦 Shampoo</span>
+      <span class="htag">👨‍👩‍👧 Family Owned</span>
+    </div>
+    <div class="hero-actions">
+      <a href="tel:+17377576322" class="btn-blue">📲 737-757-6322</a>
+      <a href="#pricing" class="btn-ghost">View Pricing →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-num">500+</div>
+        <div class="hstat-label">Cars Detailed</div>
+      </div>
+      <div class="hstat-sep"></div>
+      <div class="hstat">
+        <div class="hstat-num">4</div>
+        <div class="hstat-label">Service Areas</div>
+      </div>
+      <div class="hstat-sep"></div>
+      <div class="hstat">
+        <div class="hstat-num">100%</div>
+        <div class="hstat-label">Mobile</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hcard">
+      <div class="hcard-title">⚡ PRICING AT A GLANCE</div>
+
+      <div class="price-tier">
+        <div class="pt-label">Basic Package</div>
+        <div class="pt-rows">
+          <div class="pt-row"><span class="pt-name">Interior Only</span><span class="pt-price">$40–50</span></div>
+          <div class="pt-row"><span class="pt-name">Exterior Only</span><span class="pt-price">$45–55</span></div>
+          <div class="pt-row"><span class="pt-name">Full Detail</span><span class="pt-price">$85–105</span></div>
+        </div>
+      </div>
+
+      <div class="pt-divider"></div>
+
+      <div class="price-tier">
+        <div class="pt-label">Ultimate Package</div>
+        <div class="pt-rows">
+          <div class="pt-row"><span class="pt-name">Full Detail</span><span class="pt-price">$145–165</span></div>
+          <div class="pt-row"><span class="pt-name">Interior</span><span class="pt-price">$45</span></div>
+          <div class="pt-row"><span class="pt-name">Exterior</span><span class="pt-price">$65</span></div>
+        </div>
+      </div>
+
+      <div class="pt-divider"></div>
+
+      <div class="hcard-addons">
+        <div class="pt-label">Add-Ons</div>
+        <div class="addon-row"><span>Shampoo Seats</span><span class="addon-price">+$30</span></div>
+        <div class="addon-row"><span>Pet Hair</span><span class="addon-price">+$20</span></div>
+        <div class="addon-row"><span>Excess Sand/Mud/Grass</span><span class="addon-price">+$30–60</span></div>
+      </div>
+
+      <a href="tel:+17377576322" class="hcard-cta">📲 Text to Book — 737-757-6322</a>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">Mobile Detailing</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">We Come To You</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">Interior & Exterior</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">Austin TX</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">Kyle TX</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">Buda TX</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">500+ Cars Detailed</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">Family Owned</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">No Shortcuts</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">Mobile Detailing</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">We Come To You</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">Interior & Exterior</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">Austin TX</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">Kyle TX</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">Buda TX</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">500+ Cars Detailed</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">Family Owned</span><span class="ticker-sep">⚡</span>
+    <span class="ticker-item">No Shortcuts</span><span class="ticker-sep">⚡</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-text js-reveal">
+    <p class="sec-eye">Who We Are</p>
+    <h2 class="sec-title">Built On <em>Hustle</em> &<br>Hard Work</h2>
+    <p class="about-body">Me and the family run ZamTastic Mobile Detailing — and we've been knocking out cars all over the Austin area. Early mornings, late nights, back-to-back details… just staying consistent and trusting the process.</p>
+    <div class="about-quote">"Every car we touch, we treat it like it's our own. No shortcuts. No rushing. Just solid work every time."</div>
+    <p class="about-body">We've been blessed to keep growing and earning trust from the community — and we don't take that lightly. 500+ cars detailed and still going strong.</p>
+    <div class="about-features">
+      <div class="af-item"><span class="af-icon">🏆</span>Quality Standards</div>
+      <div class="af-item"><span class="af-icon">📍</span>We Come To You</div>
+      <div class="af-item"><span class="af-icon">👨‍👩‍👧</span>Family Owned & Operated</div>
+      <div class="af-item"><span class="af-icon">⏰</span>Flexible Scheduling</div>
+      <div class="af-item"><span class="af-icon">🚗</span>All Vehicle Types</div>
+      <div class="af-item"><span class="af-icon">💯</span>Consistent Results</div>
+    </div>
+  </div>
+  <div class="about-visual js-reveal-r">
+    <div class="av-main">
+      <div class="av-center">
+        <span>ZAM</span>
+        <span style="font-size:5rem">TASTIC</span>
+      </div>
+      <div class="av-badge-cars">
+        <div class="num">500+</div>
+        <div class="lbl">Cars Done</div>
+      </div>
+      <div class="av-bottom">
+        <h3>ZamTastic Mobile Detailing</h3>
+        <p>Kyle, TX · Dove Springs raised · Austin 512</p>
+      </div>
+    </div>
+    <div class="av-stat-strip">
+      <div class="avs"><div class="avs-num">4</div><div class="avs-lbl">Cities</div></div>
+      <div class="avs"><div class="avs-num">100%</div><div class="avs-lbl">Mobile</div></div>
+      <div class="avs"><div class="avs-num">★5</div><div class="avs-lbl">Quality</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header js-reveal">
+    <div>
+      <p class="sec-eye">What We Do</p>
+      <h2 class="sec-title">Our <em>Services</em></h2>
+    </div>
+    <a href="tel:+17377576322" class="services-link">Book a Detail →</a>
+  </div>
+  <div class="services-grid">
+    <div class="svc js-reveal">
+      <div class="svc-num">01</div>
+      <span class="svc-icon">🚿</span>
+      <div class="svc-name">Exterior Wash</div>
+      <p class="svc-desc">Full hand wash, foam treatment, wheel & tire deep clean, hand dry for a streak-free finish. Your car's outside looking pristine.</p>
+      <div class="svc-items">
+        <div class="svc-item">Pre-rinse + foam treatment</div>
+        <div class="svc-item">Wheels & tires deep cleaned</div>
+        <div class="svc-item">Hand dry — streak-free</div>
+        <div class="svc-item">Door jambs cleaned</div>
+      </div>
+    </div>
+    <div class="svc js-reveal" style="transition-delay:.08s">
+      <div class="svc-num">02</div>
+      <span class="svc-icon">🪑</span>
+      <div class="svc-name">Interior Detail</div>
+      <p class="svc-desc">Full interior blowout, vacuum, wipe-down, dash & panels, console, leather conditioning and windows. Fresh luxury feel every time.</p>
+      <div class="svc-items">
+        <div class="svc-item">Full interior vacuum & blowout</div>
+        <div class="svc-item">Leather wipe & conditioning</div>
+        <div class="svc-item">Dash, panels & trim detailed</div>
+        <div class="svc-item">Windows streak-free finish</div>
+      </div>
+    </div>
+    <div class="svc js-reveal" style="transition-delay:.16s">
+      <div class="svc-num">03</div>
+      <span class="svc-icon">✨</span>
+      <div class="svc-name">Full Detail</div>
+      <p class="svc-desc">The complete ZamTastic experience — inside and out. We go next level with details you can see AND feel. We don't rush jobs.</p>
+      <div class="svc-items">
+        <div class="svc-item">Complete exterior + interior</div>
+        <div class="svc-item">Premium foam treatment</div>
+        <div class="svc-item">Deep wheel & tire shine</div>
+        <div class="svc-item">Fresh luxury interior feel</div>
+      </div>
+    </div>
+    <div class="svc js-reveal" style="transition-delay:.24s">
+      <div class="svc-num">04</div>
+      <span class="svc-icon">🐾</span>
+      <div class="svc-name">Pet Hair Removal</div>
+      <p class="svc-desc">Got furry passengers? We specialize in thorough pet hair removal from seats, carpet, and every crevice. Your car, pet-hair-free.</p>
+      <div class="svc-items">
+        <div class="svc-item">All fabric surfaces</div>
+        <div class="svc-item">Seats & carpet</div>
+        <div class="svc-item">Add-on: +$20</div>
+      </div>
+    </div>
+    <div class="svc js-reveal" style="transition-delay:.32s">
+      <div class="svc-num">05</div>
+      <span class="svc-icon">💦</span>
+      <div class="svc-name">Seat Shampoo</div>
+      <p class="svc-desc">Deep shampoo treatment for fabric seats — removes stains, odors and built-up grime. Leaves seats fresh and clean.</p>
+      <div class="svc-items">
+        <div class="svc-item">Deep foam shampoo</div>
+        <div class="svc-item">Stain & odor removal</div>
+        <div class="svc-item">Add-on: +$30</div>
+      </div>
+    </div>
+    <div class="svc js-reveal" style="transition-delay:.4s">
+      <div class="svc-num">06</div>
+      <span class="svc-icon">🏆</span>
+      <div class="svc-name">Ultimate Package</div>
+      <p class="svc-desc">Top-tier detailing for vehicles that deserve the best. Premium products, extra attention to detail, next-level results. Full $145–165.</p>
+      <div class="svc-items">
+        <div class="svc-item">Everything in Full Detail</div>
+        <div class="svc-item">Premium treatment & products</div>
+        <div class="svc-item">Extra attention & time</div>
+        <div class="svc-item">Luxury finish guaranteed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-header js-reveal">
+    <p class="sec-eye" style="justify-content:center;display:flex">Transparent Pricing</p>
+    <h2 class="sec-title">No Hidden <em>Fees</em></h2>
+  </div>
+  <div class="pricing-cards">
+    <div class="price-card js-reveal">
+      <div class="pc-tier">Basic Package</div>
+      <div class="pc-name">The Clean</div>
+      <div class="pc-sub">Solid results, real value</div>
+      <div class="pc-rows">
+        <div class="pc-row"><span class="pc-row-name">Interior Only</span><span class="pc-row-price">$40–50</span></div>
+        <div class="pc-row"><span class="pc-row-name">Exterior Only</span><span class="pc-row-price">$45–55</span></div>
+        <div class="pc-row"><span class="pc-row-name">Full Detail</span><span class="pc-row-price">$85–105</span></div>
+      </div>
+    </div>
+    <div class="price-card featured js-reveal" style="transition-delay:0.15s">
+      <div class="pc-tier">Ultimate Package</div>
+      <div class="pc-name">The Premium</div>
+      <div class="pc-sub">Next-level treatment for your ride</div>
+      <div class="pc-rows">
+        <div class="pc-row"><span class="pc-row-name">Full Detail</span><span class="pc-row-price">$145–165</span></div>
+        <div class="pc-row"><span class="pc-row-name">Interior</span><span class="pc-row-price">$45</span></div>
+        <div class="pc-row"><span class="pc-row-name">Exterior</span><span class="pc-row-price">$65</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="addons-card js-reveal">
+    <div class="addons-title">Add-On Services</div>
+    <div class="addons-grid">
+      <div class="addon-item"><span class="addon-name">Shampoo Seats</span><span class="addon-p">+$30</span></div>
+      <div class="addon-item"><span class="addon-name">Pet Hair Removal</span><span class="addon-p">+$20</span></div>
+      <div class="addon-item"><span class="addon-name">Excess Sand / Mud / Grass</span><span class="addon-p">+$30–60</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="gallery-header js-reveal">
+    <p class="sec-eye" style="justify-content:center;display:flex">Our Work</p>
+    <h2 class="sec-title">Results <em>Speak</em></h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gc js-reveal"><div class="gc-inner gcb1">🚘</div><div class="gc-overlay"></div><div class="gc-label"><span>Full Detail</span>Mercedes AMG GLC 300</div></div>
+    <div class="gc js-reveal" style="transition-delay:.06s"><div class="gc-inner gcb2">🪑</div><div class="gc-overlay"></div><div class="gc-label"><span>Interior</span>Leather Conditioning</div></div>
+    <div class="gc js-reveal" style="transition-delay:.12s"><div class="gc-inner gcb3">✨</div><div class="gc-overlay"></div><div class="gc-label"><span>Exterior</span>Gloss Finish</div></div>
+    <div class="gc js-reveal" style="transition-delay:.18s"><div class="gc-inner gcb4">🔵</div><div class="gc-overlay"></div><div class="gc-label"><span>Wheels</span>Deep Tire Clean</div></div>
+    <div class="gc js-reveal" style="transition-delay:.09s"><div class="gc-inner gcb5">🚗</div><div class="gc-overlay"></div><div class="gc-label"><span>Full Detail</span>Kia Forte — Inside Out</div></div>
+    <div class="gc js-reveal" style="transition-delay:.15s"><div class="gc-inner gcb6">🧼</div><div class="gc-overlay"></div><div class="gc-label"><span>Exterior</span>Foam Treatment</div></div>
+    <div class="gc js-reveal" style="transition-delay:.21s"><div class="gc-inner gcb7">🏍️</div><div class="gc-overlay"></div><div class="gc-label"><span>Motorcycle</span>Pulled Up Clean</div></div>
+    <div class="gc js-reveal" style="transition-delay:.27s"><div class="gc-inner gcb8">💎</div><div class="gc-overlay"></div><div class="gc-label"><span>Premium</span>Next Level Results</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="reviews">
+  <div class="test-header js-reveal">
+    <p class="sec-eye" style="justify-content:center;display:flex">Client Reviews</p>
+    <h2 class="sec-title">The <em>Community</em> Speaks</h2>
+  </div>
+  <div class="test-grid">
+    <div class="test-card js-reveal">
+      <span class="tc-icon">🚗</span>
+      <div class="tc-stars">★★★★★</div>
+      <p class="tc-text">"Beautiful work on my Kia Forte — inside and out. They took their time and made it look brand new. Will definitely book again!"</p>
+      <div class="tc-line"></div>
+      <div class="tc-name">Freddy Zamora</div>
+      <div class="tc-role">Verified Client · Facebook</div>
+    </div>
+    <div class="test-card js-reveal" style="transition-delay:.15s">
+      <span class="tc-icon">✨</span>
+      <div class="tc-stars">★★★★★</div>
+      <p class="tc-text">"My Mercedes AMG came in already clean — but ZamTastic took it to another level. Details I could see AND feel. This is how it's done."</p>
+      <div class="tc-line"></div>
+      <div class="tc-name">Mercedes AMG Owner</div>
+      <div class="tc-role">Kyle, TX · Full Ultimate Detail</div>
+    </div>
+    <div class="test-card js-reveal" style="transition-delay:.3s">
+      <span class="tc-icon">🏆</span>
+      <div class="tc-stars">★★★★★</div>
+      <p class="tc-text">"Family-owned, professional, and they come to YOUR door. Spring cleaning was never this easy. Best mobile detailers in the Austin area — no doubt."</p>
+      <div class="tc-line"></div>
+      <div class="tc-name">Austin Area Client</div>
+      <div class="tc-role">Buda, TX · Full Detail</div>
+    </div>
+  </div>
+  <div class="social-proof js-reveal">
+    <div class="sp-num">500+</div>
+    <div class="sp-sep"></div>
+    <div class="sp-text">
+      <div class="sp-title">Cars Detailed & Counting</div>
+      <div class="sp-sub">Consistency. Dedication. Results.<br>Trusted by the Austin, Kyle & Buda communities.</div>
+    </div>
+  </div>
+</section>
+
+<!-- AREAS -->
+<section class="areas">
+  <div class="areas-inner">
+    <div class="areas-content js-reveal">
+      <p class="sec-eye" style="color:rgba(255,255,255,0.6)">Service Areas</p>
+      <h2 class="sec-title" style="color:white">We Come <em style="color:rgba(255,255,255,0.4)">To You</em></h2>
+      <p class="areas-text">Mobile detailing means we show up at your home, office, or wherever your car is parked. No need to drive anywhere — we bring the detail to you.</p>
+      <div class="areas-cities">
+        <div class="area-chip">Austin, TX</div>
+        <div class="area-chip">Kyle, TX</div>
+        <div class="area-chip">Buda, TX</div>
+        <div class="area-chip">South ATX</div>
+      </div>
+    </div>
+    <div class="areas-cta js-reveal-r">
+      <h3>Ready To Book?</h3>
+      <p>Spots fill up fast. DM us or text now to lock in your detail this week.</p>
+      <a href="tel:+17377576322">📲 Text 737-757-6322</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="js-reveal">
+    <p class="sec-eye">Get In Touch</p>
+    <h2 class="sec-title">Book Your <em>Detail</em></h2>
+    <p class="contact-text">Text or DM us to lock in your spot. Spots fill up quick — don't wait. We serve Austin, Kyle, Buda & surrounding areas.</p>
+    <div class="contact-cards">
+      <a href="tel:+17377576322" class="cc">
+        <div class="cc-icon">📲</div>
+        <div><div class="cc-lbl">Call or Text</div><div class="cc-val">737-757-6322</div></div>
+      </a>
+      <a href="https://square.site" target="_blank" class="cc">
+        <div class="cc-icon">🌐</div>
+        <div><div class="cc-lbl">Book Online</div><div class="cc-val">square.site</div></div>
+      </a>
+      <a href="https://www.instagram.com/zam_tastic_mobiledetailing" target="_blank" class="cc">
+        <div class="cc-icon">📸</div>
+        <div><div class="cc-lbl">Instagram</div><div class="cc-val">@zam_tastic_mobiledetailing</div></div>
+      </a>
+      <div class="cc" style="cursor:default">
+        <div class="cc-icon">📍</div>
+        <div><div class="cc-lbl">Based In</div><div class="cc-val">Kyle, TX 78640 · Dove Springs · Austin 512</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="js-reveal-r">
+    <div class="map-frame">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110000!2d-97.8800!3d30.0100!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865b4905fe7c1eb9%3A0x1!2sKyle%2C%20TX%2078640!5e0!3m2!1sen!2sus!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <a href="https://maps.google.com/?q=Kyle+TX+78640" target="_blank" class="map-btn">📍 Kyle, TX — View on Maps</a>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <h2>GET YOUR RIDE <span>ZAM-TASTIC</span></h2>
+  <p>No shortcuts. No rushing. Just solid work every time. Text us now and we'll come to you.</p>
+  <a href="tel:+17377576322" class="btn-blue">📲 Text 737-757-6322 — Book Now</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <span class="footer-logo">ZAM<span>·TASTIC</span></span>
+      <p class="footer-tag">"Consistency. Dedication. Results." — Mobile detailing done right, every time.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Exterior Wash</a></li>
+        <li><a href="#services">Interior Detail</a></li>
+        <li><a href="#services">Full Detail</a></li>
+        <li><a href="#services">Pet Hair Removal</a></li>
+        <li><a href="#services">Seat Shampoo</a></li>
+        <li><a href="#services">Ultimate Package</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+17377576322">737-757-6322</a></li>
+        <li><a href="https://square.site" target="_blank">square.site</a></li>
+        <li><a href="https://instagram.com/zam_tastic_mobiledetailing" target="_blank">@zam_tastic_mobiledetailing</a></li>
+        <li><a>Kyle, TX · Austin · Buda</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Zam-Tastic Mobile Detailing · Kyle, TX 78640</span>
+    <span>⚡ 500+ Cars Detailed · Family Owned & Operated</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  document.getElementById('hamburger').addEventListener('click', () => nav.classList.toggle('open'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 50 ? '0 4px 40px rgba(26,143,227,0.15)' : 'none';
+  });
+
+  // Pure JS reveal — no CSS opacity conflict
+  document.querySelectorAll('.js-reveal, .js-reveal-r').forEach(el => {
+    const isR = el.classList.contains('js-reveal-r');
+    el.style.opacity = '0';
+    el.style.transform = isR ? 'translateX(30px)' : 'translateY(28px)';
+    el.style.transition = 'opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1)';
+  });
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translate(0,0)';
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+
+  document.querySelectorAll('.js-reveal, .js-reveal-r').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
